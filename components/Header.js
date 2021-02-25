@@ -6,8 +6,6 @@ const Header = () => {
     return (
         <View style={styles.view}>
             <Text style={styles.title}>Corona Travels</Text>
-            <Image source = {require('../assets/images/lion-head.png')}
-                   style = {styles.image}/>
         </View>
     )
     
@@ -15,15 +13,12 @@ const Header = () => {
 
 const styles = StyleSheet.create({
     view: {
-        flexDirection: 'row',
-        justifyContent: 'space-between'
+        marginTop: 30,
+        marginBottom: -10,
+        alignItems: 'center'
     },
     title: {
         fontSize: 40
-    },
-    image: {
-        width: 50,
-        height: 50
     }
 })
 

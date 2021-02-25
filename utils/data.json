@@ -1,0 +1,81 @@
+{
+    "cities": [
+        {
+            "id": 0,
+            "name": "-- Choisir une ville --",
+            "IATA": "unknow"
+        },
+        {
+            "id": 1,
+            "name": "Shanghai",
+            "IATA": "PVG"
+        },
+        {
+            "id": 2,
+            "name": "Lyon",
+            "IATA": "LYS"
+        },
+        {
+            "id": 3,
+            "name": "Genève",
+            "IATA": "GVA"
+        },
+        {
+            "id": 4,
+            "name": "TOKYO",
+            "IATA": "NRT"
+        },
+        {
+            "id": 5,
+            "name": "Los Angles",
+            "IATA": "LAX"
+        }
+    ],
+    "airlineCompanies": [
+        {
+            "id": 1,
+            "name": "air france",
+            "departTimeAller": "10:30",
+            "arriveTimeAller": "11:45",
+            "departTimeRetour": "20:45",
+            "arriveTimeRetour": "21:55",
+            "price": 500
+        },
+        {
+            "id": 2,
+            "name": "japan airlines",
+            "departTimeAller": "12:30",
+            "arriveTimeAller": "14:45",
+            "departTimeRetour": "18:45",
+            "arriveTimeRetour": "20:55",
+            "price": 600
+        },
+        {
+            "id": 3,
+            "name": "china airlines",
+            "departTimeAller": "08:30",
+            "arriveTimeAller": "10:45",
+            "departTimeRetour": "22:45",
+            "arriveTimeRetour": "00:55",
+            "price": 550
+        },
+        {
+            "id": 4,
+            "name": "Lufthansa",
+            "departTimeAller": "06:30",
+            "arriveTimeAller": "08:45",
+            "departTimeRetour": "15:45",
+            "arriveTimeRetour": "18:55",
+            "price": 400
+        },
+        {
+            "id": 5,
+            "name": "united airlines",
+            "departTimeAller": "04:30",
+            "arriveTimeAller": "06:45",
+            "departTimeRetour": "15:45",
+            "arriveTimeRetour": "18:55",
+            "price": 450
+        }
+    ]
+}
