@@ -8,27 +8,32 @@
         {
             "id": 1,
             "name": "Shanghai",
-            "IATA": "PVG"
+            "IATA": "PVG",
+            "img": "https://image.freepik.com/free-photo/aerial-view-shanghai-city-skyline-skyscraper-shanghai-modern-city-night-china-huangpu-river_35024-927.jpg"
         },
         {
             "id": 2,
             "name": "Lyon",
-            "IATA": "LYS"
+            "IATA": "LYS",
+            "img": "https://image.freepik.com/free-photo/aerial-view-lyon-from-basilique-de-fourviere-hill-france_268835-889.jpg"
         },
         {
             "id": 3,
             "name": "Genève",
-            "IATA": "GVA"
+            "IATA": "GVA",
+            "img": "https://image.freepik.com/free-photo/montreux-sunset-skyline-leman-geneva-swiss_79295-9304.jpg"
         },
         {
             "id": 4,
             "name": "TOKYO",
-            "IATA": "NRT"
+            "IATA": "NRT",
+            "img": "https://image.freepik.com/free-photo/beautiful-architecture-building-tokyo-city-skyline_74190-7530.jpg"
         },
         {
             "id": 5,
             "name": "Los Angles",
-            "IATA": "LAX"
+            "IATA": "LAX",
+            "img": "https://image.freepik.com/free-photo/los-angeles-coastline_186382-11382.jpg"
         }
     ],
     "airlineCompanies": [

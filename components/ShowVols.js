@@ -1,13 +1,14 @@
 import React from 'react';
-import { SafeAreaView, ScrollView, StyleSheet, View, Button, Text } from 'react-native';
+import { SafeAreaView, ScrollView, StyleSheet, View, Button, Text, Alert } from 'react-native';
 import { Card, Title, Paragraph } from 'react-native-paper';
 import data from '../utils/data.json';
 
 const ShowVols = ({ route, navigation }) => {
-    const { travelType, departAirport, arriveAirport, departDate, arriveDate } = route.params
+    const { travelType, departAirport, arriveAirport, departDate, arriveDate, isVolDirect } = route.params
     const dd = new Date(departDate)
     const ad = new Date(arriveDate)
     const airComps = data.airlineCompanies
+
     return (
         <SafeAreaView>
             <ScrollView>
@@ -19,17 +20,17 @@ const ShowVols = ({ route, navigation }) => {
                 </Card>
                 {airComps.map(c => {
                     return (
-                        <Card style={{ borderColor: 'grey', borderWidth: 0.5, marginVertical: 3 }}>
-                            <Card.Content>
+                        <Card key={c.id} style={{ borderColor: 'grey', borderWidth: 0.5, marginVertical: 3 }}>
+                            <Card.Content style={{borderBottomWidth: 0.5, borderBottomColor: 'grey', paddingVertical: 5}}>
                                 <Paragraph>{c.name.toUpperCase()}</Paragraph>
-                                <Title style={{ alignSelf: 'center' }}>{c.departTimeAller}   -------------------   {c.arriveTimeAller}</Title>
+                                <Title style={{ alignSelf: 'center', paddingTop: 10 }}>{c.departTimeAller}   -------{!isVolDirect ? <Paragraph style={{color: 'green'}}>Direct</Paragraph> : <Paragraph style={{color: 'red'}}>2 escales</Paragraph>}-------   {c.arriveTimeAller}</Title>
                                 <View style={styles.iata}>
                                     <Text>{departAirport.IATA}</Text>
                                     <Text>{arriveAirport.IATA}</Text>
                                 </View>
                                 {travelType === "allerRetour" &&
                                     <View>
-                                        <Title style={{ alignSelf: 'center' }}>{c.departTimeRetour}   -------------------   {c.arriveTimeRetour}</Title>
+                                        <Title style={{ alignSelf: 'center', paddingTop: 10 }}>{c.departTimeRetour}   -------{!isVolDirect ? <Paragraph style={{color: 'green'}}>Direct</Paragraph> : <Paragraph style={{color: 'red'}}>2 escales</Paragraph>}-------   {c.arriveTimeRetour}</Title>
                                         <View style={styles.iata}>
                                             <Text>{arriveAirport.IATA}</Text>
                                             <Text>{departAirport.IATA}</Text>
@@ -37,8 +38,18 @@ const ShowVols = ({ route, navigation }) => {
                                     </View>
                                 }
                             </Card.Content>
-                            <Card.Actions>
-                                <Button title="Réserver" />
+                            <Card.Actions style={{justifyContent: 'space-between', paddingHorizontal: 15}}>
+                                <Button title="Réserver" onPress={()=>{
+                                                            navigation.navigate('Account', {
+                                                                id: 1,
+                                                                departAirport: departAirport,
+                                                                arriveAirport: arriveAirport,
+                                                                departDate: departDate,
+                                                                arriveDate: arriveDate,
+                                                                airCompanyId: c.id
+                                                            })}
+                                }/>
+                                <Paragraph style={{fontWeight: 'bold', fontSize: 20}}>{c.price} €</Paragraph>
                             </Card.Actions>
                         </Card>
                     )

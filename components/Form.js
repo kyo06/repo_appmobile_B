@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
+import CheckBox from '@react-native-community/checkbox';
 import { RadioButton, Button } from 'react-native-paper';
 import DatePicker from 'react-native-datepicker';
 import { Picker } from '@react-native-picker/picker';
@@ -12,6 +13,7 @@ const Form = ({ navigation }) => {
     const [arriveAirport, setArriveAirport] = useState("");
     const [departDate, setDD] = React.useState(new Date());
     const [arriveDate, setAD] = React.useState(new Date());
+    const [checkBox, setCheckBox] = useState(false)
     const cities = data.cities;
 
     const handleSubmit = () => {
@@ -20,7 +22,8 @@ const Form = ({ navigation }) => {
             departAirport: departAirport,
             arriveAirport: arriveAirport,
             departDate: departDate.toString(),
-            arriveDate: arriveDate.toString()
+            arriveDate: arriveDate.toString(),
+            isVolDirect: checkBox
         })
     }
 
@@ -28,8 +31,8 @@ const Form = ({ navigation }) => {
         <View style={styles.view}>
             {/*************************************** type de voyage **************************************/}
             <RadioButton.Group onValueChange={newTravelType => setTravelType(newTravelType)} value={travelType}>
-                <RadioButton.Item color="royalblue" label="Aller-retour" value="allerRetour"/>
-                <RadioButton.Item color="royalblue" label="Aller-simple" value="allerSimple"/>
+                <RadioButton.Item color="royalblue" label="Aller-retour" value="allerRetour" />
+                <RadioButton.Item color="royalblue" label="Aller-simple" value="allerSimple" />
             </RadioButton.Group>
 
             {/****************************************** airport ******************************************/}
@@ -40,9 +43,9 @@ const Form = ({ navigation }) => {
                 onValueChange={(itemValue, itemIndex) =>
                     setDepartAirport(itemValue)
                 }>
-                {cities.filter(c => c!==arriveAirport).map(i => {
+                {cities.filter(c => c !== arriveAirport).map(i => {
                     return (
-                        <Picker.Item label={i.name} value={i} />
+                        <Picker.Item key={i.id} label={i.name} value={i} />
                     )
                 })}
             </Picker>
@@ -53,9 +56,9 @@ const Form = ({ navigation }) => {
                 onValueChange={(itemValue, itemIndex) =>
                     setArriveAirport(itemValue)
                 }>
-                {cities.filter(c => c!==departAirport).map(i => {
+                {cities.filter(c => c !== departAirport).map(i => {
                     return (
-                        <Picker.Item label={i.name} value={i} />
+                        <Picker.Item key={i.id} label={i.name} value={i} />
                     )
                 })}
             </Picker>
@@ -85,33 +88,40 @@ const Form = ({ navigation }) => {
                         onDateChange={(departDate) => setDD(departDate)}
                     />
                 </View>
-                
-                <View>
-                    <Text>Retour :</Text>
-                    <DatePicker
-                        style={{ width: 180 }}
-                        date={arriveDate}
-                        mode="date"
-                        format="YYYY-MM-DD"
-                        minDate={new Date()}
-                        confirmBtnText="Confirm"
-                        cancelBtnText="Cancel"
-                        customStyles={{
-                            dateIcon: {
-                                position: 'absolute',
-                                left: 0,
-                                top: 4,
-                                marginLeft: 0
-                            },
-                            dateInput: {
-                                marginLeft: 36
-                            }
-                        }}
-                        onDateChange={(arriveDate) => setAD(arriveDate)}
-                    />
-                </View>
+                {travelType === "allerRetour" &&
+                    <View>
+                        <Text>Retour :</Text>
+                        <DatePicker
+                            style={{ width: 180 }}
+                            date={arriveDate}
+                            mode="date"
+                            format="YYYY-MM-DD"
+                            minDate={new Date()}
+                            confirmBtnText="Confirm"
+                            cancelBtnText="Cancel"
+                            customStyles={{
+                                dateIcon: {
+                                    position: 'absolute',
+                                    left: 0,
+                                    top: 4,
+                                    marginLeft: 0
+                                },
+                                dateInput: {
+                                    marginLeft: 36
+                                }
+                            }}
+                            onDateChange={(arriveDate) => setAD(arriveDate)}
+                        />
+                    </View>}
             </View>
-
+            <View style={styles.checkBox}>
+                <CheckBox
+                    disabled={false}
+                    value={checkBox}
+                    onValueChange={(newValue) => setCheckBox(newValue)}
+                />
+                <Text>Vols avec escales</Text>
+            </View>
             <Button style={styles.btnSubmit} mode="contained" color="royalblue" onPress={handleSubmit}>Trouver un vol</Button>
         </View>
     )
@@ -137,10 +147,15 @@ const styles = StyleSheet.create({
     },
     datePicker: {
         flexDirection: 'row',
-        marginTop: 20
+        marginTop: 10
+    },
+    checkBox: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        marginTop: 10
     },
     btnSubmit: {
-        marginTop: 40
+        marginTop: 20
     }
 })
 
