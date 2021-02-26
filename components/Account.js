@@ -1,5 +1,6 @@
 import React from 'react';
-import { SafeAreaView, ScrollView, StyleSheet, View, Text } from 'react-native';
+import styles from './Styles';
+import { SafeAreaView, ScrollView, View, Text } from 'react-native';
 import { Button, Card, Title, Paragraph } from 'react-native-paper';
 import DialogCustum from './DialogCustum';
 import data from '../utils/data.json';
@@ -16,33 +17,33 @@ const Account = ({ route, navigation }) => {
         return (
             <SafeAreaView>
                 <ScrollView>
-                    <Text style={{ fontSize: 30, backgroundColor: 'white', paddingHorizontal: 20, paddingVertical: 10, color: 'darkorange' }}>Vos réservations</Text>
+                    <Text style={ styles.accoutTitle }>Vos réservations</Text>
                     <Card>
                         <Card.Content>
-                            <Title>{departAirport.name}({departAirport.IATA}) -- {arriveAirport.name}({arriveAirport.IATA})</Title>
-                            <Paragraph>{dd.toDateString()} -- {ad.toDateString()}</Paragraph>
+                            <Title>{ departAirport.name }({ departAirport.IATA }) -- { arriveAirport.name }({ arriveAirport.IATA })</Title>
+                            <Paragraph>{ dd.toDateString()} -- {ad.toDateString() }</Paragraph>
                         </Card.Content>
                         <Card.Cover source={{ uri: arriveAirport.img }} />
                         <Card.Actions>
-                            <Button onPress={() => { setShowDetail(!showDetail ? true : false) }}>{ !showDetail ? "Gérer" : "Masquer"}</Button>
-                            <DialogCustum dialogTitle="Attention" dialogContent="Voulez-vous vraiment annler votre réservation ?" buttonValue="Annuler" btnStyle={{marginRight: -230}} dialogStyle={{paddingBottom: 80, marginBottom: 240}}/>
+                            <Button onPress={() => { setShowDetail(!showDetail ? true : false) }}>{ !showDetail ? "Gérer" : "Masquer" }</Button>
+                            <DialogCustum dialogTitle="Attention" dialogContent="Voulez-vous vraiment annler votre réservation ?" buttonValue="Annuler" btnStyle={{ marginRight: -230 }} dialogStyle={{ paddingBottom: 80, marginBottom: 240 }}/>
                         </Card.Actions>
                     </Card>
-                    {showDetail &&
+                    { showDetail &&
                     <Card>
-                        <Card.Content style={{borderBottomWidth: 0.5, borderBottomColor: 'grey', paddingVertical: 5}}>
-                                <Paragraph>{resaData.name.toUpperCase()}</Paragraph>
-                                <Title style={{ alignSelf: 'center', paddingTop: 10 }}>{resaData.departTimeAller}   -------{!isVolDirect ? <Paragraph style={{color: 'green'}}>Direct</Paragraph> : <Paragraph style={{color: 'red'}}>2 escales</Paragraph>}-------   {resaData.arriveTimeAller}</Title>
-                                <View style={styles.iata}>
-                                    <Text>{departAirport.IATA}</Text>
-                                    <Text>{arriveAirport.IATA}</Text>
+                        <Card.Content style={ styles.card }>
+                                <Paragraph>{ resaData.name.toUpperCase() }</Paragraph>
+                                <Title style={ styles.horaire }>{ resaData.departTimeAller }   -------{ !isVolDirect ? <Paragraph style={ styles.green }>Direct</Paragraph> : <Paragraph style={ styles.red }>2 escales</Paragraph>}-------   { resaData.arriveTimeAller }</Title>
+                                <View style={ styles.iata }>
+                                    <Text>{ departAirport.IATA }</Text>
+                                    <Text>{ arriveAirport.IATA }</Text>
                                 </View>
-                                {travelType === "allerRetour" &&
+                                { travelType === "allerRetour" &&
                                     <View>
-                                        <Title style={{ alignSelf: 'center', paddingTop: 10 }}>{resaData.departTimeRetour}   -------{!isVolDirect ? <Paragraph style={{color: 'green'}}>Direct</Paragraph> : <Paragraph style={{color: 'red'}}>2 escales</Paragraph>}-------   {resaData.arriveTimeRetour}</Title>
-                                        <View style={styles.iata}>
-                                            <Text>{arriveAirport.IATA}</Text>
-                                            <Text>{departAirport.IATA}</Text>
+                                        <Title style={ styles.horaire }>{ resaData.departTimeRetour }   -------{ !isVolDirect ? <Paragraph style={ styles.green }>Direct</Paragraph> : <Paragraph style={ styles.red }>2 escales</Paragraph>}-------   { resaData.arriveTimeRetour }</Title>
+                                        <View style={ styles.iata }>
+                                            <Text>{ arriveAirport.IATA }</Text>
+                                            <Text>{ departAirport.IATA }</Text>
                                         </View>
                                     </View>
                                 }
@@ -60,16 +61,5 @@ const Account = ({ route, navigation }) => {
     }
 
 }
-
-const styles = StyleSheet.create({
-    card: {
-        backgroundColor: 'orange'
-    },
-    iata: {
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        paddingHorizontal: 75
-    }
-})
 
 export default Account;

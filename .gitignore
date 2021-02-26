@@ -106,5 +106,3 @@ dist
 .expo/README.md
 .expo/settings.json
 package-lock.json
-.expo/packager-info.json
-.expo/packager-info.json

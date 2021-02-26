@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { Text, View } from 'react-native';
+import styles from './Styles';
 import CheckBox from '@react-native-community/checkbox';
 import { RadioButton, Button } from 'react-native-paper';
 import DatePicker from 'react-native-datepicker';
@@ -28,7 +29,7 @@ const Form = ({ navigation }) => {
     }
 
     return (
-        <View style={styles.view}>
+        <View style={styles.formView}>
             {/*************************************** type de voyage **************************************/}
             <RadioButton.Group onValueChange={newTravelType => setTravelType(newTravelType)} value={travelType}>
                 <RadioButton.Item color="royalblue" label="Aller-retour" value="allerRetour" />
@@ -38,9 +39,9 @@ const Form = ({ navigation }) => {
             {/****************************************** airport ******************************************/}
             <Text>De :</Text>
             <Picker
+                style={styles.formPicker}
                 selectedValue={departAirport}
-                style={{ height: 40, width: 380, backgroundColor: 'white', marginVertical: 10 }}
-                onValueChange={(itemValue, itemIndex) =>
+                onValueChange={(itemValue) =>
                     setDepartAirport(itemValue)
                 }>
                 {cities.filter(c => c !== arriveAirport).map(i => {
@@ -51,9 +52,9 @@ const Form = ({ navigation }) => {
             </Picker>
             <Text>A :</Text>
             <Picker
+                style={styles.formPicker}
                 selectedValue={arriveAirport}
-                style={{ height: 40, width: 380, backgroundColor: 'white', marginVertical: 10 }}
-                onValueChange={(itemValue, itemIndex) =>
+                onValueChange={(itemValue) =>
                     setArriveAirport(itemValue)
                 }>
                 {cities.filter(c => c !== departAirport).map(i => {
@@ -63,7 +64,7 @@ const Form = ({ navigation }) => {
                 })}
             </Picker>
             {/*************************************** date de voyage **************************************/}
-            <View style={styles.datePicker}>
+            <View style={styles.formDatePicker}>
                 <View>
                     <Text>Aller :</Text>
                     <DatePicker
@@ -74,17 +75,7 @@ const Form = ({ navigation }) => {
                         minDate={new Date()}
                         confirmBtnText="Confirm"
                         cancelBtnText="Cancel"
-                        customStyles={{
-                            dateIcon: {
-                                position: 'absolute',
-                                left: 0,
-                                top: 4,
-                                marginLeft: 0
-                            },
-                            dateInput: {
-                                marginLeft: 36
-                            }
-                        }}
+                        customStyles={styles.dateIcon, styles.dateInput}
                         onDateChange={(departDate) => setDD(departDate)}
                     />
                 </View>
@@ -99,22 +90,12 @@ const Form = ({ navigation }) => {
                             minDate={new Date()}
                             confirmBtnText="Confirm"
                             cancelBtnText="Cancel"
-                            customStyles={{
-                                dateIcon: {
-                                    position: 'absolute',
-                                    left: 0,
-                                    top: 4,
-                                    marginLeft: 0
-                                },
-                                dateInput: {
-                                    marginLeft: 36
-                                }
-                            }}
+                            customStyles={styles.dateIcon, styles.dateInput}
                             onDateChange={(arriveDate) => setAD(arriveDate)}
                         />
                     </View>}
             </View>
-            <View style={styles.checkBox}>
+            <View style={styles.formCheckBox}>
                 <CheckBox
                     disabled={false}
                     value={checkBox}
@@ -122,41 +103,10 @@ const Form = ({ navigation }) => {
                 />
                 <Text>Vols avec escales</Text>
             </View>
-            <Button style={styles.btnSubmit} mode="contained" color="royalblue" onPress={handleSubmit}>Trouver un vol</Button>
+            <Button style={styles.formBtnSubmit} mode="contained" color="royalblue" onPress={handleSubmit}>Trouver un vol</Button>
         </View>
     )
 
 }
-
-const styles = StyleSheet.create({
-    view: {
-        height: 550,
-        marginVertical: 20,
-        padding: 20
-    },
-    datetime: {
-        flexDirection: 'row',
-        justifyContent: 'space-between'
-    },
-    textInput: {
-        height: 40,
-        borderColor: 'grey',
-        borderWidth: 1,
-        padding: 5,
-        marginVertical: 10
-    },
-    datePicker: {
-        flexDirection: 'row',
-        marginTop: 10
-    },
-    checkBox: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        marginTop: 10
-    },
-    btnSubmit: {
-        marginTop: 20
-    }
-})
 
 export default Form;

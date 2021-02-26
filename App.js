@@ -1,8 +1,9 @@
 import React from 'react';
-import { Image } from 'react-native';
+import styles from "./components/Styles";
 import Header from './components/Header';
 import Home from './components/Home';
 import Account from './components/Account';
+import { Image } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
@@ -26,7 +27,7 @@ export default function App() {
           <Tab.Screen
             options={{
               tabBarIcon: () => {
-                return <Image source={require('./assets/images/home.png')} style={{ width: 30, height: 30, resizeMode: 'stretch' }} />
+                return <Image source={require('./assets/images/home.png')} style={styles.tabIcon} />
               }
             }}
             name="Home"
@@ -34,7 +35,7 @@ export default function App() {
           <Tab.Screen
             options={{
               tabBarIcon: () => {
-                return <Image source={require('./assets/images/user.png')} style={{ width: 30, height: 30, resizeMode: 'stretch' }} />
+                return <Image source={require('./assets/images/user.png')} style={styles.tabIcon} />
               }
             }}
             name="Account"
