@@ -1,5 +1,5 @@
 import React from 'react';
-import { SafeAreaView, ScrollView, StyleSheet, View, Button, Text, Alert } from 'react-native';
+import { SafeAreaView, ScrollView, StyleSheet, View, Button, Text } from 'react-native';
 import { Card, Title, Paragraph } from 'react-native-paper';
 import data from '../utils/data.json';
 
@@ -46,7 +46,9 @@ const ShowVols = ({ route, navigation }) => {
                                                                 arriveAirport: arriveAirport,
                                                                 departDate: departDate,
                                                                 arriveDate: arriveDate,
-                                                                airCompanyId: c.id
+                                                                airCompanyId: c.id,
+                                                                isVolDirect: isVolDirect,
+                                                                travelType: travelType
                                                             })}
                                 }/>
                                 <Paragraph style={{fontWeight: 'bold', fontSize: 20}}>{c.price} €</Paragraph>
