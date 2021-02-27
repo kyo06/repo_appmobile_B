@@ -6,13 +6,14 @@ import Account from './components/Account';
 import { Image } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { UserProvider } from './contexts/User';
 
 export default function App() {
 
   const Tab = createBottomTabNavigator();
 
   return (
-    <>
+    <UserProvider>
       <Header />
         <NavigationContainer>
           <Tab.Navigator
@@ -42,7 +43,7 @@ export default function App() {
               component={Account} />
           </Tab.Navigator>
         </NavigationContainer>
-    </>
+    </UserProvider>
   );
 
 }

@@ -4,8 +4,11 @@ import { SafeAreaView, ScrollView, View, Text } from 'react-native';
 import { Button, Card, Title, Paragraph } from 'react-native-paper';
 import DialogCustum from './DialogCustum';
 import data from '../utils/data.json';
+import UserContext from '../contexts/User';
 
 const Account = ({ route, navigation }) => {
+
+    const user = React.useContext(UserContext)
 
     if (route.params !== undefined) {
         const { id, departAirport, arriveAirport, departDate, arriveDate, airCompanyId, isVolDirect, travelType } = route.params
@@ -17,6 +20,7 @@ const Account = ({ route, navigation }) => {
         return (
             <SafeAreaView>
                 <ScrollView>
+                    <Text style={ styles.accoutTitle }>Bonjour, {user.name}</Text>
                     <Text style={ styles.accoutTitle }>Vos réservations</Text>
                     <Card>
                         <Card.Content>
@@ -57,7 +61,12 @@ const Account = ({ route, navigation }) => {
         )
 
     } else {
-        return <Text style={ styles.accoutTitle }>Vous n'avez pas de réservation pur le moment</Text>
+        return (
+            <View>
+                <Text style={ styles.accoutTitle }>Bonjour, {user.name}</Text>
+                <Text style={ styles.accoutTitle }>Vous n'avez pas de réservation pur le moment</Text>
+            </View>
+        )
     }
 
 }
