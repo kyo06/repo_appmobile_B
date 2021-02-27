@@ -14,35 +14,35 @@ export default function App() {
   return (
     <>
       <Header />
-      <NavigationContainer>
-        <Tab.Navigator
-          tabBarOptions={{
-            showIcon: true,
-            showLabel: false,
-            style: {
-              backgroundColor: 'darkorange',
-              height: 60
-            }
-          }}>
-          <Tab.Screen
-            options={{
-              tabBarIcon: () => {
-                return <Image source={require('./assets/images/home.png')} style={styles.tabIcon} />
+        <NavigationContainer>
+          <Tab.Navigator
+            tabBarOptions={{
+              showIcon: true,
+              showLabel: false,
+              style: {
+                backgroundColor: 'darkorange',
+                height: 60
               }
-            }}
-            name="Home"
-            component={Home} />
-          <Tab.Screen
-            options={{
-              tabBarIcon: () => {
-                return <Image source={require('./assets/images/user.png')} style={styles.tabIcon} />
-              }
-            }}
-            name="Account"
-            component={Account} />
-        </Tab.Navigator>
-      </NavigationContainer>
+            }}>
+            <Tab.Screen
+              options={{
+                tabBarIcon: () => {
+                  return <Image source={require('./assets/images/home.png')} style={styles.tabIcon} />
+                }
+              }}
+              name="Home"
+              component={Home} />
+            <Tab.Screen
+              options={{
+                tabBarIcon: () => {
+                  return <Image source={require('./assets/images/user.png')} style={styles.tabIcon} />
+                }
+              }}
+              name="Account"
+              component={Account} />
+          </Tab.Navigator>
+        </NavigationContainer>
     </>
-
   );
+
 }

@@ -1,108 +1,92 @@
-import React, { useState } from 'react';
-import { Text, View } from 'react-native';
+import React from 'react';
 import styles from './Styles';
-import CheckBox from '@react-native-community/checkbox';
-import { RadioButton, Button } from 'react-native-paper';
-import DatePicker from 'react-native-datepicker';
-import { Picker } from '@react-native-picker/picker';
 import data from '../utils/data.json';
+import CheckBox from '@react-native-community/checkbox';
+import { Text, View } from 'react-native';
+import { Picker } from '@react-native-picker/picker';
+import { DatePickerTemplete } from './DatePickerTemplete';
+import { RadioButton, Button } from 'react-native-paper';
 
 const Form = ({ navigation }) => {
-
-    const [travelType, setTravelType] = useState('allerRetour')
-    const [departAirport, setDepartAirport] = useState("");
-    const [arriveAirport, setArriveAirport] = useState("");
-    const [departDate, setDD] = React.useState(new Date());
-    const [arriveDate, setAD] = React.useState(new Date());
-    const [checkBox, setCheckBox] = useState(false)
+    
     const cities = data.cities;
+
+    const initForm = {
+        travelType: "allerRetour",
+        departAirport: "",
+        arriveAirport: "",
+        departDate: new Date(),
+        arriveDate: new Date(),
+        checkBox: false
+    }
+    const [form, setForm] = React.useState(initForm);
 
     const handleSubmit = () => {
         navigation.navigate('ShowVols', {
-            travelType: travelType,
-            departAirport: departAirport,
-            arriveAirport: arriveAirport,
-            departDate: departDate.toString(),
-            arriveDate: arriveDate.toString(),
-            isVolDirect: checkBox
+            travelType: form.travelType,
+            departAirport: form.departAirport,
+            arriveAirport: form.arriveAirport,
+            departDate: form.departDate.toString(),
+            arriveDate: form.arriveDate.toString(),
+            isVolDirect: form.checkBox
         })
     }
 
     return (
         <View style={styles.formView}>
-            {/*************************************** type de voyage **************************************/}
-            <RadioButton.Group onValueChange={newTravelType => setTravelType(newTravelType)} value={travelType}>
+
+            {/******************************  choisir type de voyage    **************************************/}
+
+            <RadioButton.Group onValueChange={newTravelType => setForm({...form, travelType: newTravelType})} value={form.travelType}>
                 <RadioButton.Item color="royalblue" label="Aller-retour" value="allerRetour" />
                 <RadioButton.Item color="royalblue" label="Aller-simple" value="allerSimple" />
             </RadioButton.Group>
 
-            {/****************************************** airport ******************************************/}
+            {/*************************  choisir airport de départ et arrivé ***********************************/}
+
             <Text>De :</Text>
             <Picker
                 style={styles.formPicker}
-                selectedValue={departAirport}
-                onValueChange={(itemValue) =>
-                    setDepartAirport(itemValue)
-                }>
-                {cities.filter(c => c !== arriveAirport).map(i => {
+                selectedValue={form.departAirport}
+                onValueChange={(itemValue) => setForm({...form, departAirport: itemValue})}>
+                {cities.filter(c => c !== form.arriveAirport).map(i => {
                     return (
                         <Picker.Item key={i.id} label={i.name} value={i} />
                     )
                 })}
             </Picker>
+
             <Text>A :</Text>
             <Picker
                 style={styles.formPicker}
-                selectedValue={arriveAirport}
-                onValueChange={(itemValue) =>
-                    setArriveAirport(itemValue)
-                }>
-                {cities.filter(c => c !== departAirport).map(i => {
+                selectedValue={form.arriveAirport}
+                onValueChange={(itemValue) => setForm({...form, arriveAirport: itemValue})}>
+                {cities.filter(c => c !== form.departAirport).map(i => {
                     return (
                         <Picker.Item key={i.id} label={i.name} value={i} />
                     )
                 })}
             </Picker>
-            {/*************************************** date de voyage **************************************/}
+
+            {/*****************************    choisir la(les) date(s) de voyage   **************************************/}
+
             <View style={styles.formDatePicker}>
-                <View>
-                    <Text>Aller :</Text>
-                    <DatePicker
-                        style={{ width: 180 }}
-                        date={departDate}
-                        mode="date"
-                        format="YYYY-MM-DD"
-                        minDate={new Date()}
-                        confirmBtnText="Confirm"
-                        cancelBtnText="Cancel"
-                        customStyles={styles.dateIcon, styles.dateInput}
-                        onDateChange={(departDate) => setDD(departDate)}
-                    />
-                </View>
-                {travelType === "allerRetour" &&
-                    <View>
-                        <Text>Retour :</Text>
-                        <DatePicker
-                            style={{ width: 180 }}
-                            date={arriveDate}
-                            mode="date"
-                            format="YYYY-MM-DD"
-                            minDate={new Date()}
-                            confirmBtnText="Confirm"
-                            cancelBtnText="Cancel"
-                            customStyles={styles.dateIcon, styles.dateInput}
-                            onDateChange={(arriveDate) => setAD(arriveDate)}
-                        />
-                    </View>}
+                <DatePickerTemplete label="Aller :" value={form.departDate} onDateChange={(departDate) => setForm({...form, departDate: departDate})}/>
+                {form.travelType === "allerRetour" &&
+                <DatePickerTemplete label="Retour :" value={form.arriveDate} onDateChange={(arriveDate) => setForm({...form, arriveDate: arriveDate})}/>}
             </View>
+
+            {/*****************************    choisir vols avec ou sans escales   **************************************/}
+
             <View style={styles.formCheckBox}>
                 <CheckBox
                     disabled={false}
-                    value={checkBox}
-                    onValueChange={(newValue) => setCheckBox(newValue)}
+                    value={form.checkBox}
+                    onValueChange={(newValue) => setForm({...form, checkBox: newValue})}
                 />
                 <Text>Vols avec escales</Text>
             </View>
+
             <Button style={styles.formBtnSubmit} mode="contained" color="royalblue" onPress={handleSubmit}>Trouver un vol</Button>
         </View>
     )

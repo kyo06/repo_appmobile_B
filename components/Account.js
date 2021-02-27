@@ -57,7 +57,7 @@ const Account = ({ route, navigation }) => {
         )
 
     } else {
-        return <Text>Aucune réservation</Text>
+        return <Text style={ styles.accoutTitle }>Vous n'avez pas de réservation pur le moment</Text>
     }
 
 }
